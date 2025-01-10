@@ -186,8 +186,8 @@ const connectorMap: { [key: string]: ConnectorRoute } = {
   empty: {
     path: "empty",
     element: <EmptyConnector />,
-    title: i18n.t("translation:choose_connector.empty.title"),
-    logo: "",
+    title: "Nostr ",
+    logo: "https://uploads-ssl.webflow.com/63c03639465a40c317d8a341/63e4386c03459d099f4b1221_Nostrgram_Logo.png",
   },
 };
 
@@ -261,27 +261,7 @@ const distributionMap: { [key: string]: { logo: string; children: Route[] } } =
   };
 
 function getConnectorRoutes(): ConnectorRoute[] {
-  return [
-    connectorMap["albyhub"],
-    connectorMap["lnd"],
-    connectorMap["lnc"],
-    connectorMap["commando"],
-    connectorMap["lnbits"],
-    connectorMap["nwc"],
-    getDistribution("umbrel"),
-    getDistribution("startos"),
-    getDistribution("raspiblitz"),
-    getDistribution("mynode"),
-    getDistribution("nirvati"),
-    connectorMap["btcpay"],
-    connectorMap["voltage"],
-    connectorMap[galoyPaths.blink],
-    connectorMap[galoyPaths.bitcoinJungle],
-    connectorMap["lawallet"],
-    connectorMap["lnd-hub-go"],
-    connectorMap["eclair"],
-    connectorMap["empty"],
-  ];
+  return [connectorMap["empty"]];
 }
 
 function renderRoutes(routes: (ChildRoute | ConnectorRoute)[]) {

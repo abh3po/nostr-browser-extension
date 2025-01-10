@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Button from "~/app/components/Button";
 import ConnectorPath from "~/app/components/ConnectorPath";
-import ConnectAlby from "~/app/screens/connectors/ConnectAlby";
 
 export default function ChooseConnectorPath() {
   const { t } = useTranslation("translation", {
@@ -16,17 +15,6 @@ export default function ChooseConnectorPath() {
           {t("title")}
         </h1>
         <div className="grid lg:grid-cols-2 gap-8 mb-4">
-          <ConnectorPath
-            title={t("alby.title")}
-            icon={
-              <img
-                src="assets/icons/alby.png"
-                className="w-10 h-10 rounded-md"
-              />
-            }
-            description={t("alby.description")}
-            actions={<ConnectAlby />}
-          />
           <ConnectorPath
             title={t("other.title")}
             icon={

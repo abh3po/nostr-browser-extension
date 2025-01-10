@@ -483,7 +483,7 @@ function AccountDetail() {
                 </div>
 
                 <div className="flex-none sm:w-64 w-full pt-4 sm:pt-0">
-                  <Link to="/nostr/settings">
+                  <Link to={`nostr/settings`}>
                     <Button
                       label={t("nostr.settings.label")}
                       primary

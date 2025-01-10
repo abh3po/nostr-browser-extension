@@ -2,7 +2,7 @@ import Container from "@components/Container";
 import { PopiconsCircleExclamationLine } from "@popicons/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Alert from "~/app/components/Alert";
 import Button from "~/app/components/Button";
 import TextField from "~/app/components/form/TextField";
@@ -29,6 +29,7 @@ function NostrSettings() {
   const [NIP05Key, setNIP05Key] = useState("");
   const [lightningAddress, setLightningAddress] = useState("");
   const [account, setAccount] = useState<GetAccountRes>();
+  const { id } = useParams();
 
   let creasteAccountTemplate = {
     connectorType: "empty",
@@ -44,7 +45,7 @@ function NostrSettings() {
 
   const fetchData = useCallback(async () => {
     console.log("INSIDE FETCH DATA NOSTR SETTINGS");
-    let accountResponse = await api.getAccount();
+    let accountResponse = await api.getAccount(id);
 
     console.log("account Response is", accountResponse);
     if (!accountResponse) {
@@ -60,14 +61,13 @@ function NostrSettings() {
       setAccount(accountResponse);
       selectAccount(accountResponse.id as string);
     }
-    const priv = await api.nostr.getPrivateKey("1");
-    console.log("Fetching ACCOUNT");
+    const priv = await api.nostr.getPrivateKey(accountResponse.id);
+    console.log("Do we have a private key?", priv);
     if (priv) {
       setCurrentPrivateKey(priv);
       const nsec = nostr.hexToNip19(priv);
       setNostrPrivateKey(nsec);
     }
-    console.log("FROM GET ACCOUNT RESPONSE", accountResponse);
     if (accountResponse) {
       console.log("HAS MNEMONIC", accountResponse.hasMnemonic);
       console.log(

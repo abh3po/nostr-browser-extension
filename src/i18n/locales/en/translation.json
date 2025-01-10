@@ -40,7 +40,7 @@
       "other": {
         "title": "Bring Your Own Wallet",
         "description": "Best if you already have a wallet or own a lightning node.",
-        "connect": "Find Your Wallet"
+        "connect": "Add an Account"
       },
       "alby": {
         "title": "Alby Account",
