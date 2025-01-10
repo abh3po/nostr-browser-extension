@@ -127,6 +127,7 @@ const state = create<State>((set, get) => ({
       const password = await get().password();
       if (!password) throw new Error("Password is not set");
       const config = decryptData(account.config as string, password);
+      console.log("connector is", account.connector);
       const connector = new connectors[account.connector](account, config);
       await connector.init();
       return connector;

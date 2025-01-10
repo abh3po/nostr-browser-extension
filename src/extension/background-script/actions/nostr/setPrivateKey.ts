@@ -7,7 +7,7 @@ import state from "../../state";
 
 const setPrivateKey = async (message: MessageNostrPrivateKeySet) => {
   const id = message.args?.id || state.getState().currentAccountId;
-
+  console.log("SET PRIVATE KEY");
   const password = await state.getState().password();
   if (!password) {
     return {
@@ -28,6 +28,7 @@ const setPrivateKey = async (message: MessageNostrPrivateKeySet) => {
   }
 
   const accounts = state.getState().accounts;
+  console.log("ACCOUNTS ARE", accounts);
 
   if (id && Object.keys(accounts).includes(id)) {
     const account = accounts[id];
@@ -53,7 +54,7 @@ const setPrivateKey = async (message: MessageNostrPrivateKeySet) => {
     };
   }
   return {
-    error: "No account selected.",
+    error: `No account selected.${accounts}, ${id}`,
   };
 };
 

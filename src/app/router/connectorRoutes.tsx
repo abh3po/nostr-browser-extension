@@ -18,6 +18,7 @@ import i18n from "~/i18n/i18nConfig";
 import ConnectAlbyHub from "~/app/screens/connectors/ConnectAlbyHub";
 import ConnectNWC from "~/app/screens/connectors/ConnectNWC";
 import ConnectVoltage from "~/app/screens/connectors/ConnectVoltage";
+import { EmptyConnector } from "~/app/screens/connectors/EmptyConnector";
 import ConnectCommando from "../screens/connectors/ConnectCommando";
 import albyhub from "/static/assets/icons/albyhub.png";
 import btcpay from "/static/assets/icons/btcpay.svg";
@@ -182,6 +183,12 @@ const connectorMap: { [key: string]: ConnectorRoute } = {
     title: i18n.t("translation:choose_connector.lawallet.title"),
     logo: lawallet,
   },
+  empty: {
+    path: "empty",
+    element: <EmptyConnector />,
+    title: i18n.t("translation:choose_connector.empty.title"),
+    logo: "",
+  },
 };
 
 function getDistribution(key: string): ConnectorRoute {
@@ -273,6 +280,7 @@ function getConnectorRoutes(): ConnectorRoute[] {
     connectorMap["lawallet"],
     connectorMap["lnd-hub-go"],
     connectorMap["eclair"],
+    connectorMap["empty"],
   ];
 }
 

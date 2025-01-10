@@ -36,6 +36,7 @@ type AccountAction = Pick<Account, "id" | "name">;
 dayjs.extend(relativeTime);
 
 function AccountDetail() {
+  console.log("INSIDE ACCOUNT DETAIL");
   const auth = useAccount();
   const { accounts, getAccounts } = useAccounts();
   const { t } = useTranslation("translation", {
@@ -90,6 +91,7 @@ function AccountDetail() {
   const fetchData = useCallback(async () => {
     try {
       if (id) {
+        console.log("ACCOUNT DETAILS HAS ID,", id);
         const response = await api.getAccount(id);
         setAccount(response);
         setAccountName(response.name);
@@ -107,6 +109,8 @@ function AccountDetail() {
             setNostrPublicKey(nostrPublicKeyNpub);
           }
         }
+      } else {
+        console.log("ACCOUNT DETAILS HAS NO ID");
       }
     } catch (e) {
       console.error(e);
@@ -479,7 +483,7 @@ function AccountDetail() {
                 </div>
 
                 <div className="flex-none sm:w-64 w-full pt-4 sm:pt-0">
-                  <Link to="nostr/settings">
+                  <Link to="/nostr/settings">
                     <Button
                       label={t("nostr.settings.label")}
                       primary

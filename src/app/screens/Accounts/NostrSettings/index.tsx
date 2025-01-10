@@ -1,12 +1,8 @@
 import Container from "@components/Container";
-import Loading from "@components/Loading";
-import {
-  PopiconsCircleExclamationLine,
-  PopiconsExpandLine,
-} from "@popicons/react";
+import { PopiconsCircleExclamationLine } from "@popicons/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import Alert from "~/app/components/Alert";
 import Button from "~/app/components/Button";
 import TextField from "~/app/components/form/TextField";
@@ -14,8 +10,8 @@ import InputCopyButton from "~/app/components/InputCopyButton";
 import MenuDivider from "~/app/components/Menu/MenuDivider";
 import PasswordViewAdornment from "~/app/components/PasswordViewAdornment";
 import toast from "~/app/components/Toast";
-import { isAlbyOAuthAccount } from "~/app/utils";
-import api, { GetAccountRes } from "~/common/lib/api";
+import api, { GetAccountRes, selectAccount } from "~/common/lib/api";
+import msg from "~/common/lib/msg";
 import { default as nostr } from "~/common/lib/nostr";
 
 function NostrSettings() {
@@ -30,35 +26,62 @@ function NostrSettings() {
   const [nostrPrivateKeyVisible, setNostrPrivateKeyVisible] = useState(false);
   const [nostrPublicKey, setNostrPublicKey] = useState("");
   const [hasImportedNostrKey, setHasImportedNostrKey] = useState(false);
-  const [account, setAccount] = useState<GetAccountRes>();
-  const { id } = useParams() as { id: string };
   const [NIP05Key, setNIP05Key] = useState("");
   const [lightningAddress, setLightningAddress] = useState("");
+  const [account, setAccount] = useState<GetAccountRes>();
+
+  let creasteAccountTemplate = {
+    connectorType: "empty",
+    balance: { balance: 0, currency: "BTC" },
+    currentAccountId: "1",
+    name: "DEFAULT NOSTR SIGNER",
+    info: {
+      alias: "",
+      nostr_pubkey: "",
+      lightning_address: "",
+    },
+  };
 
   const fetchData = useCallback(async () => {
-    if (id) {
-      const priv = await api.nostr.getPrivateKey(id);
-      const account = await api.getAccountInfo();
-      if (account.info.nostr_pubkey) {
-        setNIP05Key(account.info.nostr_pubkey);
-      }
+    console.log("INSIDE FETCH DATA NOSTR SETTINGS");
+    let accountResponse = await api.getAccount();
 
-      if (account.info.lightning_address) {
-        setLightningAddress(account.info.lightning_address);
-      }
-      if (priv) {
-        setCurrentPrivateKey(priv);
-        const nsec = nostr.hexToNip19(priv);
-        setNostrPrivateKey(nsec);
-      }
-      const accountResponse = await api.getAccount(id);
+    console.log("account Response is", accountResponse);
+    if (!accountResponse) {
+      console.log("Creating account", account);
+      let accountResponseNew = await msg.request(
+        "addAccount",
+        creasteAccountTemplate
+      );
+      selectAccount(accountResponseNew.id as string);
+      console.log("ACCOUNT RESPONSE IS", accountResponseNew);
+    }
+    if (accountResponse) {
+      setAccount(accountResponse);
+      selectAccount(accountResponse.id as string);
+    }
+    const priv = await api.nostr.getPrivateKey("1");
+    console.log("Fetching ACCOUNT");
+    if (priv) {
+      setCurrentPrivateKey(priv);
+      const nsec = nostr.hexToNip19(priv);
+      setNostrPrivateKey(nsec);
+    }
+    console.log("FROM GET ACCOUNT RESPONSE", accountResponse);
+    if (accountResponse) {
+      console.log("HAS MNEMONIC", accountResponse.hasMnemonic);
+      console.log(
+        "HAS IMPORTED NOSTR KEY",
+        accountResponse.hasImportedNostrKey
+      );
       setHasMnemonic(accountResponse.hasMnemonic);
       setHasImportedNostrKey(accountResponse.hasImportedNostrKey);
-      setAccount(accountResponse);
     }
-  }, [id]);
+    selectAccount("1");
+  }, []);
 
   useEffect(() => {
+    console.log("INISDE NOSTR SETTINGS");
     fetchData();
   }, [fetchData]);
 
@@ -85,7 +108,7 @@ function NostrSettings() {
       throw new Error("No mnemonic exists");
     }
 
-    const derivedNostrPrivateKey = await api.nostr.generatePrivateKey(id);
+    const derivedNostrPrivateKey = await api.nostr.generatePrivateKey("1");
     setNostrPrivateKey(nostr.hexToNip19(derivedNostrPrivateKey));
   }
 
@@ -103,9 +126,9 @@ function NostrSettings() {
 
     try {
       if (nostrPrivateKey) {
-        await api.nostr.setPrivateKey(id, nostrPrivateKey);
+        await api.nostr.setPrivateKey(account?.id || "1", nostrPrivateKey);
       } else {
-        await api.nostr.removePrivateKey(id);
+        await api.nostr.removePrivateKey("1");
       }
 
       toast.success(
@@ -122,14 +145,10 @@ function NostrSettings() {
       }
     }
     // go to account settings
-    navigate(`/accounts/${id}`);
+    navigate(`/accounts/${account?.id}`);
   }
 
-  return !account ? (
-    <div className="flex justify-center mt-5">
-      <Loading />
-    </div>
-  ) : (
+  return (
     <Container>
       <div className="flex flex-col gap-12 mt-12">
         <div className="flex flex-col gap-6">
@@ -287,7 +306,7 @@ function NostrSettings() {
             </div>
           </div>
         </div>
-        {isAlbyOAuthAccount(account.connectorType) && (
+        {/* {isAlbyOAuthAccount(account.connectorType) && (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
               <h2 className="text-xl font-bold dark:text-white leading-7">
@@ -344,7 +363,7 @@ function NostrSettings() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </Container>
   );

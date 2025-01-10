@@ -57,7 +57,8 @@ function Options() {
               </RequireAuth>
             }
           >
-            <Route index element={<Navigate to="/wallet" replace />} />
+            <Route index element={<Navigate to="nostr/settings" replace />} />
+            <Route path="nostr/settings" element={<NostrSettings />} />
             <Route path="publishers">
               <Route path=":id" element={<PublisherDetail />} />
               <Route index element={<Publishers />} />
@@ -82,8 +83,9 @@ function Options() {
             <Route path="settings" element={<Settings />} />
             <Route path="scanQRCode" element={<ScanQRCode />} />
             <Route path="accounts">
-              <Route index element={<Accounts />} />
+              <Route element={<Accounts />} />
               <Route path=":id" element={<AccountDetailLayout />}>
+                <Route path="nostr/settings" element={<NostrSettings />} />
                 <Route index element={<AccountDetail />} />
                 <Route path="secret-key/backup" element={<BackupMnemonic />} />
                 <Route
@@ -92,7 +94,6 @@ function Options() {
                 />
                 <Route path="secret-key/new" element={<NewMnemonic />} />
                 <Route path="secret-key/import" element={<ImportMnemonic />} />
-                <Route path="nostr/settings" element={<NostrSettings />} />
               </Route>
 
               <Route

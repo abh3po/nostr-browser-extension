@@ -12,6 +12,7 @@ export default function ChooseConnector({
   description,
   connectorRoutes,
 }: Props) {
+  console.log("connectorRoutes are", connectorRoutes);
   return (
     <>
       <div className="mt-14 mb-4 lg:mb-14 lg:grid lg:gap-8 text-center">

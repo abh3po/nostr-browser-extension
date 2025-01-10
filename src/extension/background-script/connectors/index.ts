@@ -2,6 +2,7 @@ import Alby from "./alby";
 import Citadel from "./citadel";
 import Commando from "./commando";
 import Eclair from "./eclair";
+import EmptyConnector from "./empty";
 import Galoy from "./galoy";
 import Kollider from "./kollider";
 import LaWallet from "./lawallet";
@@ -40,6 +41,7 @@ const connectors = {
   alby: Alby,
   nwc: NWC,
   lawallet: LaWallet,
+  empty: EmptyConnector,
 };
 
 export default connectors;

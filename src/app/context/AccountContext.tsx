@@ -142,6 +142,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     api
       .getStatus()
       .then((response) => {
+        console.log("RESPONSE FROM GET STATUS IS ", response);
         const onWelcomePage =
           window.location.pathname.indexOf("welcome.html") >= 0;
         if (!response.configured && !onWelcomePage) {
