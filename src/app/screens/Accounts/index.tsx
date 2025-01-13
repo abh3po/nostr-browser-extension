@@ -1,19 +1,23 @@
 import Button from "@components/Button";
 import Container from "@components/Container";
 import { PopiconsChevronRightLine, PopiconsPlusSolid } from "@popicons/react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Avatar from "~/app/components/Avatar";
 import { useAccounts } from "~/app/context/AccountsContext";
 
 function AccountsScreen() {
-  const { accounts } = useAccounts();
+  const { accounts, getAccounts } = useAccounts();
   const navigate = useNavigate();
 
   const { t } = useTranslation("translation", {
     keyPrefix: "accounts",
   });
 
+  useEffect(() => {
+    getAccounts();
+  }, []);
   return (
     <Container>
       <div className="mt-12 mb-6 flex items-center justify-between">
@@ -21,7 +25,7 @@ function AccountsScreen() {
         <div>
           <Button
             icon={<PopiconsPlusSolid className="w-5 h-5 mr-2" />}
-            label={t("actions.connect_a_wallet")}
+            label={t("actions.create_profile")}
             primary
             onClick={() => navigate(`/accounts/new`)}
           />

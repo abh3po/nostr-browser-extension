@@ -422,7 +422,7 @@
       }
     },
     "accounts": {
-      "title": "Wallets",
+      "title": "Accounts",
       "account_view": {
         "description": "Settings related to this particular instance of the connected wallet. If you reconnect, settings related to keys or display name will have to be set again.",
         "name": {
@@ -599,7 +599,7 @@
         }
       },
       "actions": {
-        "connect_a_wallet": "Connect a Wallet"
+        "create_profile": "Create Profile"
       }
     },
     "webln_enable": {
