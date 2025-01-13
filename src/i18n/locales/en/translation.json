@@ -36,10 +36,10 @@
       }
     },
     "choose_path": {
-      "title": "Connect Alby Extension to a wallet",
+      "title": "Initialize your nostr wallet",
       "other": {
-        "title": "Bring Your Own Wallet",
-        "description": "Best if you already have a wallet or own a lightning node.",
+        "title": "Nostr Only",
+        "description": "Signing nostr events",
         "connect": "Add an Account"
       },
       "alby": {
@@ -66,8 +66,8 @@
       }
     },
     "choose_connector": {
-      "title": "Connect Lightning Wallet",
-      "description": "Connect to your external lightning wallet or node",
+      "title": "Add Nostr Account",
+      "description": "",
       "lnd": {
         "title": "LND",
         "page": {

@@ -95,7 +95,7 @@ class EmptyConnector implements Connector {
   }
 
   async unload(): Promise<void> {
-    throw Promise.resolve();
+    return Promise.resolve();
   }
 
   private customRecordsToTlv(

@@ -20,26 +20,14 @@ export default function ChooseConnectorPath() {
             icon={
               <div className="grid grid-cols-2 gap-1">
                 <img
-                  src="assets/icons/lnd.png"
-                  className="w-[18px] h-[18px] rounded-md"
-                />
-                <img
-                  src="assets/icons/umbrel.png"
-                  className="w-[18px] h-[18px] rounded-md"
-                />
-                <img
-                  src="assets/icons/btcpay.svg"
-                  className="w-[18px] h-[18px] rounded-md"
-                />
-                <img
-                  src="assets/icons/core_ln.png"
+                  src="https://raw.githubusercontent.com/github/explore/0382c83d646175721d5050463ec7ef2e5acf92f2/topics/nostr/nostr.png"
                   className="w-[18px] h-[18px] rounded-md"
                 />
               </div>
             }
             description={t("other.description")}
             actions={
-              <Link to="choose-connector" className="flex flex-1">
+              <Link to="choose-connector/empty" className="flex flex-1">
                 <Button tabIndex={-1} label={t("other.connect")} flex />
               </Link>
             }

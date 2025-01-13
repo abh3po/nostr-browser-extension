@@ -46,6 +46,7 @@ function AccountMenu({ showOptions = true }: Props) {
 
   function openOptions(path: string) {
     // if we are in the popup
+    console.log("opeenOptions", path);
     if (window.location.pathname !== "/options.html") {
       utils.openPage(`options.html#/${path}`);
       // close the popup
@@ -136,6 +137,7 @@ function AccountMenu({ showOptions = true }: Props) {
                       className="cursor-pointer text-gray-600 dark:text-neutral-400 hover:text-gray-400 dark:hover:text-neutral-600"
                       title={tCommon("wallet_settings")}
                       onClick={() => {
+                        console.log("CLICKED ACCOUNT", authAccount.id);
                         openOptions(`accounts/${authAccount.id}`);
                       }}
                     >

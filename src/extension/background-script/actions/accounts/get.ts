@@ -4,14 +4,12 @@ import type { MessageAccountGet } from "~/types";
 
 const get = async (message: MessageAccountGet) => {
   const id = message?.args?.id || state.getState().currentAccountId;
-  // if (!id)
-  //   return {
-  //     error: "No account selected.",
-  //   };
+  if (!id)
+    return {
+      error: "No account selected.",
+    };
 
   const accounts = state.getState().accounts;
-
-  if (!id) return accounts[0];
   const account = accounts[id];
 
   if (!account) return;

@@ -1,7 +1,6 @@
 import PinExtension from "@screens/Onboard/PinExtension";
 import SetPassword from "@screens/Onboard/SetPassword";
 import TestConnection from "@screens/Onboard/TestConnection";
-import ChooseConnector from "@screens/connectors/ChooseConnector";
 import { useState } from "react";
 import { Outlet, Route, HashRouter as Router, Routes } from "react-router-dom";
 import Container from "~/app/components/Container";
@@ -27,18 +26,6 @@ function Welcome() {
               <Route path="choose-path">
                 <Route index={true} element={<ChooseConnectorPath />}></Route>
                 <Route path="choose-connector">
-                  <Route
-                    index={true}
-                    element={
-                      <ChooseConnector
-                        title={i18n.t("translation:choose_connector.title")}
-                        description={i18n.t(
-                          "translation:choose_connector.description"
-                        )}
-                        connectorRoutes={connectorRoutes}
-                      />
-                    }
-                  ></Route>
                   {renderRoutes(connectorRoutes)}
                 </Route>
               </Route>

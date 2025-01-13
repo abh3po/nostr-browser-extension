@@ -62,7 +62,6 @@ function NostrSettings() {
       selectAccount(accountResponse.id as string);
     }
     const priv = await api.nostr.getPrivateKey(accountResponse.id);
-    console.log("Do we have a private key?", priv);
     if (priv) {
       setCurrentPrivateKey(priv);
       const nsec = nostr.hexToNip19(priv);

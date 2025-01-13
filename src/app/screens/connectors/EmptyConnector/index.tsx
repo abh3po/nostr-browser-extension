@@ -1,14 +1,16 @@
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import Button from "~/app/components/Button";
+import Input from "~/app/components/form/Input";
 import toast from "~/app/components/Toast";
 import ConnectionErrorToast from "~/app/components/toasts/ConnectionErrorToast";
 import msg from "~/common/lib/msg";
 import utils from "~/common/lib/utils";
 
 export const EmptyConnector: React.FC = () => {
+  const [accountName, setAccountName] = useState<string>("Nostr Signer");
   const InitializeAccount = async () => {
     const account = {
-      name: `Nostr Signer`,
-      id: "1",
+      name: accountName,
       config: {},
       connector: "empty",
     };
@@ -21,7 +23,7 @@ export const EmptyConnector: React.FC = () => {
         await msg.request("selectAccount", {
           id: addResult.accountId,
         });
-        utils.redirectPage(`options.html#/nostr/settings`);
+        utils.redirectPage(`options.html#/accounts`);
       }
     } catch (e) {
       console.error(e);
@@ -34,8 +36,32 @@ export const EmptyConnector: React.FC = () => {
   };
   useEffect(() => {
     console.log("Inside EmptyConnector");
-    InitializeAccount();
+    //InitializeAccount();
   }, []);
 
-  return <div style={{ color: "White" }}> EmptyConnector </div>;
+  return (
+    <div>
+      <label className="mt-6 dark:text-neutral-400">Account Name:</label>
+      <div
+        className="mt-6 dark:text-neutral-400"
+        style={{ display: "flex", flexDirection: "row" }}
+      >
+        <Input
+          placeholder="Account name"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            setAccountName(e.target.value);
+          }}
+          value={accountName}
+          className="mt-6 dark:text-neutral-400"
+          style={{ margin: 10 }}
+        />
+        <Button
+          label="Submit"
+          onClick={() => {
+            InitializeAccount();
+          }}
+        />
+      </div>
+    </div>
+  );
 };

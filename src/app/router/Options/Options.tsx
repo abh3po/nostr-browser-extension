@@ -1,6 +1,5 @@
 import Container from "@components/Container";
 import Navbar from "@components/Navbar";
-import { PopiconsArrowUpLine } from "@popicons/react";
 import Accounts from "@screens/Accounts";
 import AccountDetail from "@screens/Accounts/Detail";
 import ConfirmPayment from "@screens/ConfirmPayment";
@@ -37,9 +36,8 @@ import OnChainReceive from "~/app/screens/OnChainReceive";
 import ReceiveInvoice from "~/app/screens/ReceiveInvoice";
 import ScanQRCode from "~/app/screens/ScanQRCode";
 import SendToBitcoinAddress from "~/app/screens/SendToBitcoinAddress";
-import ChooseConnector from "~/app/screens/connectors/ChooseConnector";
+
 import ChooseConnectorPath from "~/app/screens/connectors/ChooseConnectorPath";
-import i18n from "~/i18n/i18nConfig";
 
 function Options() {
   const connectorRoutes = getConnectorRoutes();
@@ -57,8 +55,8 @@ function Options() {
               </RequireAuth>
             }
           >
-            <Route index element={<Navigate to="nostr/settings" replace />} />
-            <Route path="nostr/settings" element={<NostrSettings />} />
+            <Route index element={<Navigate to="nostr/new" replace />} />
+            <Route path="nostr/new" element={<NostrSettings />} />
             <Route path="publishers">
               <Route path=":id" element={<PublisherDetail />} />
               <Route index element={<Publishers />} />
@@ -83,7 +81,7 @@ function Options() {
             <Route path="settings" element={<Settings />} />
             <Route path="scanQRCode" element={<ScanQRCode />} />
             <Route path="accounts">
-              <Route element={<Accounts />} />
+              <Route index element={<Accounts />} />
               <Route path=":id" element={<AccountDetailLayout />}>
                 <Route path="nostr/settings" element={<NostrSettings />} />
                 <Route index element={<AccountDetail />} />
@@ -110,18 +108,6 @@ function Options() {
                 <Route index element={<ChooseConnectorPath />} />
 
                 <Route path="choose-connector">
-                  <Route
-                    index
-                    element={
-                      <ChooseConnector
-                        title={i18n.t("translation:choose_connector.title")}
-                        description={i18n.t(
-                          "translation:choose_connector.description"
-                        )}
-                        connectorRoutes={connectorRoutes}
-                      />
-                    }
-                  />
                   {renderRoutes(connectorRoutes)}
                 </Route>
               </Route>
@@ -156,14 +142,14 @@ const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar>
-        <Navbar.Link href="/wallet">{tCommon("wallet")}</Navbar.Link>
-        <Navbar.Link href="/publishers">
+        {/* <Navbar.Link href="">{tCommon("wallet")}</Navbar.Link> */}
+        {/* <Navbar.Link href="/publishers">
           {tCommon("connected_sites")}
         </Navbar.Link>
         <Navbar.Link href="https://getalby.com/discover" target="_blank">
           {tCommon("discover")}
           <PopiconsArrowUpLine className="h-5 w-5 rotate-45" />
-        </Navbar.Link>
+        </Navbar.Link> */}
       </Navbar>
       <Toaster />
       <Outlet />
