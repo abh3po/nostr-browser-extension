@@ -4,13 +4,6 @@ import ConfirmKeysend from "@screens/ConfirmKeysend";
 import ConfirmPayment from "@screens/ConfirmPayment";
 import ConfirmRequestPermission from "@screens/ConfirmRequestPermission";
 import ConfirmSignMessage from "@screens/ConfirmSignMessage";
-import LNURLAuth from "@screens/LNURLAuth";
-import LNURLChannel from "@screens/LNURLChannel";
-import LNURLPay from "@screens/LNURLPay";
-import LNURLWithdraw from "@screens/LNURLWithdraw";
-import LiquidConfirmGetAddress from "@screens/Liquid/ConfirmGetAddress";
-import ConfirmSignPset from "@screens/Liquid/ConfirmSignPset";
-import MakeInvoice from "@screens/MakeInvoice";
 import NostrConfirmGetPublicKey from "@screens/Nostr/ConfirmGetPublicKey";
 import NostrConfirmSignMessage from "@screens/Nostr/ConfirmSignMessage";
 import NostrConfirmSignSchnorr from "@screens/Nostr/ConfirmSignSchnorr";
@@ -20,8 +13,6 @@ import AlbyLogo from "~/app/components/AlbyLogo";
 import Toaster from "~/app/components/Toast/Toaster";
 import Providers from "~/app/context/Providers";
 import RequireAuth from "~/app/router/RequireAuth";
-import BitcoinConfirmGetAddress from "~/app/screens/Bitcoin/ConfirmGetAddress";
-import ConfirmSignPsbt from "~/app/screens/Bitcoin/ConfirmSignPsbt";
 import ConfirmPaymentAsync from "~/app/screens/ConfirmPaymentAsync";
 import AlbyEnable from "~/app/screens/Enable/AlbyEnable";
 import LiquidEnable from "~/app/screens/Enable/LiquidEnable";
@@ -109,22 +100,6 @@ function Prompt() {
               } // prompt will always have an `origin` set, just the type is optional to support usage via PopUp
             />
             <Route
-              path="public/webbtc/confirmGetAddress"
-              element={<BitcoinConfirmGetAddress />}
-            />
-            <Route
-              path="webbtc/confirmSignPsbt"
-              element={<ConfirmSignPsbt />}
-            />
-            <Route
-              path="public/liquid/confirmGetAddress"
-              element={<LiquidConfirmGetAddress />}
-            />
-            <Route
-              path="public/liquid/confirmSignPset"
-              element={<ConfirmSignPset />}
-            />
-            <Route
               path="public/nostr/confirmEncrypt"
               element={<NostrConfirmEncrypt />}
             />
@@ -144,12 +119,6 @@ function Prompt() {
               path="public/nostr/confirmSignSchnorr"
               element={<NostrConfirmSignSchnorr />}
             />
-
-            <Route path="lnurlAuth" element={<LNURLAuth />} />
-            <Route path="lnurlPay" element={<LNURLPay />} />
-            <Route path="lnurlWithdraw" element={<LNURLWithdraw />} />
-            <Route path="lnurlChannel" element={<LNURLChannel />} />
-            <Route path="makeInvoice" element={<MakeInvoice />} />
             <Route path="confirmPayment" element={<ConfirmPayment />} />
             <Route
               path="confirmPaymentAsync"

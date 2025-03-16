@@ -22,10 +22,6 @@ Add Signstr to your browser
 - [Add to Chrome, Opera, Brave, and all Chromium based browsers](https://chrome.google.com/webstore/detail/alby/iokeahhehimjnekafflcihljlcjccdbe)
 - [Add to Firefox](https://addons.mozilla.org/en-US/firefox/addon/alby/)
 
-## Architecture Idea
-
-![architecture](/doc/ln-browser-architecture.png)
-
 ## 🚀 Quick Start
 
 Ensure you have
